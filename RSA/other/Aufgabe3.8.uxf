@@ -1,0 +1,32 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>460</x><y>190</y><w>210</w><h>210</h></coordinates><panel_attributes>Signatur
+-
+- key: Key
+- checksum: int
+- message: String
+-
++Signatur( key: Key ) : Signatur
+
++setMessage( path : String ) : void
++getMessage( ) : String
+
+-generateChecksum( ): void
++sign ( ): int
++checkSign ( checksum: int ) : int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>450</y><w>390</w><h>220</h></coordinates><panel_attributes>Key
+-
+-privateKey: int
+-publicKey: int
+-generatornumber: int
+-generatorfunction: int
+-
++getPrivateKey: int
++getPublicKey: int
++getGeneratornumber: int
+
+-calculateGeneratornumber ( prime1: int, prime2: int ) : void
+-calculateGeneratorfunktion ( prime1: int, prime2: int ) : void
+-generatePublicKey ( ) : void
+-generatePrivateKey ( ) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>190</y><w>170</w><h>50</h></coordinates><panel_attributes>Main
+-
++ main( args: String[] ): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>390</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element></diagram>

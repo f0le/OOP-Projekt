@@ -1,14 +1,20 @@
 package oop24;
 
+import java.util.Random;
+
 public class Key {
 
     private int privateKey;
     private int publicKey;
     private int generatorNumber;
     private int generatorFunction;
+    private int primeNumbers[];
+
+    // give a privatekey array back with number e and generatornumber g
+    // same with publickey
 
     public int getPrivateKey() {
-        
+
         return this.privateKey;
     }
 
@@ -16,29 +22,43 @@ public class Key {
 
         return this.publicKey;
     }
-    
+
     public int getGeneratorNumber() {
 
         return this.generatorNumber;
     }
 
-    private void calculateGeneratorNumber(int prime1, int prime2) {
+    public int getGeneratorFunction() {
 
-        //TODO
+        return this.generatorFunction;
     }
 
-    private void calculateGeneratorFunktion(int prime1, int prime2) {
+    private void calculateGeneratorNumber(int primeNumbers[]) {
 
-        //TODO
+        this.generatorNumber = primeNumbers[0] * primeNumbers[1];
+    }
+
+    private void calculateGeneratorFunction(int primeNumbers[]) {
+
+        this.generatorFunction = (primeNumbers[0] - 1) * (primeNumbers[1] - 1);
     }
 
     private void generatePublicKey() {
 
-        //TODO
+        // TODO
     }
 
     private void generatePrivateKey() {
 
-        //TODO
+        // TODO
+    }
+
+    private int[] getPrimeNumber() {
+
+        // generate prime nubmers with sieve, return array with two entries
+
+        int[] PrimeNumbers;
+
+        return this.PrimeNumbers;
     }
 }

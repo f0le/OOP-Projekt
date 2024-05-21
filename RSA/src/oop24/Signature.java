@@ -3,12 +3,14 @@ package oop24;
 public class Signature {
     
     private Key key;
+    private Filemanager filemanager;
     private int checksum;
     private String message;
 
-    public Signature(Key key) {
+    public Signature(Key key, Filemanager filemanger) {
 
         //TODO
+        this.filemanager = filemanager;
         this.key = key;
     }
 

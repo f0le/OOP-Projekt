@@ -57,8 +57,8 @@ public class Key {
 
         // generate prime nubmers with sieve, return array with two entries
 
-        int[] PrimeNumbers;
+        int[] primeNumbers;
 
-        return this.PrimeNumbers;
+        return this.primeNumbers; // was genau versuchen wir dann hier? :D
     }
 }

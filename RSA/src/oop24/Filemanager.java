@@ -1,18 +1,39 @@
 package oop24;
 
-import java.util.stream.*;                                                       //für die Aufgabe
+import java.io.*;
+import java.nio.file.*;                                                     //für die Aufgabe
 
 public class Filemanager {
 
-    private String file;
+    private String filePath;
+
+    public Filemanager(String filePath) {
+
+        this.filePath = filePath;
+    }
 
     public String read() {
 
-        return this.file;
+        try {
+
+            return new String(Files.readAllBytes(Paths.get(filePath)));
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void write() {
+    public void write(String content) {
 
-        //TODO io stream
+        try {
+
+            Files.write(Paths.get(filePath), content.getBytes());
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
     }
 }

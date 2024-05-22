@@ -1,26 +1,36 @@
 package oop24;
 
-import java.util.Random;
-
 public class Key {
 
+    // keys include the generatornumber always, so we return an array with two
+    // values
+    private int privateKeyPair[];
     private int privateKey;
+    private int publicKeyPair[];
     private int publicKey;
     private int generatorNumber;
-    private int generatorFunction;
-    private int primeNumbers[];
+
+    // this class needs to return the key on the screen?
+
+    // use constructor to generate the keypair automatically when a new object
+    // key is generated and return the key?
+    public Key(int prime1, int prime2) {
+    }
 
     // give a privatekey array back with number e and generatornumber g
     // same with publickey
+    public int[] getPrivateKeyPair() {
 
-    public int getPrivateKey() {
-
-        return this.privateKey;
+        this.privatekeyPair[0] = this.privateKey;
+        this.privatekeyPair[1] = this.getGeneratorNumber();
+        return this.privateKeyPair;
     }
 
-    public int getPublicKey() {
+    public int[] getPublicKeyPair() {
 
-        return this.publicKey;
+        this.publickeyPair[0] = this.publicKey;
+        this.publickeyPair[1] = this.getGeneratorNumber();
+        return this.publicKeyPair;
     }
 
     public int getGeneratorNumber() {
@@ -28,37 +38,25 @@ public class Key {
         return this.generatorNumber;
     }
 
-    public int getGeneratorFunction() {
+    private void calculateGeneratorNumber(int prime1, int prime2) {
 
-        return this.generatorFunction;
+        this.generatorNumber = prime1 * prime2;
     }
 
-    private void calculateGeneratorNumber(int primeNumbers[]) {
+    private void calculateGeneratorFunction(int prime1, int prime2) {
 
-        this.generatorNumber = primeNumbers[0] * primeNumbers[1];
-    }
-
-    private void calculateGeneratorFunction(int primeNumbers[]) {
-
-        this.generatorFunction = (primeNumbers[0] - 1) * (primeNumbers[1] - 1);
+        this.generatorFunction = (prime1 - 1) * (prime2 - 1);
     }
 
     private void generatePublicKey() {
-
-        // TODO
+        // 3 will always work
+        // this.publickey = 3;
     }
 
     private void generatePrivateKey() {
 
-        // TODO
+        // use extended euclidian elgorithm
+        // this.privatekey =
     }
 
-    private int[] getPrimeNumber() {
-
-        // generate prime nubmers with sieve, return array with two entries
-
-        int[] primeNumbers;
-
-        return this.primeNumbers; // was genau versuchen wir dann hier? :D
-    }
 }

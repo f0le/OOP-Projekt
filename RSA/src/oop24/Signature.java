@@ -2,16 +2,17 @@ package oop24;
 
 public class Signature {
     
-    private Key key;
+    private KeyPair keyPair;
     private Filemanager filemanager;
-    private int checksum;
+    private long checksum;
     private String message;
 
-    public Signature(Key key, Filemanager filemanger) {
+    public Signature(KeyPair keyPair, Filemanager filemanger) {
 
         //TODO
         this.filemanager = filemanager;
-        this.key = key;
+        this.keyPair = keyPair;
+        this.message = filemanger.read();
     }
 
     public void setMessage(String message) {
@@ -24,10 +25,20 @@ public class Signature {
         return this.message;
     }
 
-    private void generateChecksum() {
+    public long getChecksum() {
+        
+        return this.checksum;
+    }
+    
+    // vielleicht simpler als SHA-256, aber sollte auch gehen, oder?
+    public void generateChecksum() {
 
-        //TODO
-        //this.checksum = checksum;
+        byte[] bytes = message.getBytes();
+        long checksum = 0;
+        for (byte b : bytes) {
+            checksum ^= b;
+        }
+        this.checksum = checksum;
     }
 
     //TODO                                                                       // [IMPLEMENTIERUNG FEHLT TLW.]

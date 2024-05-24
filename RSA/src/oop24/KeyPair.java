@@ -30,22 +30,30 @@ public class KeyPair {
 
     public void generateKeyPair() {
 
+        long fermatPrimes[] = { 3, 5, 17, 257, 65537 };
+        this.publickey = 0;
+
+        for(long fermatPrime : fermatPrimes) {
+            if (
+                fermatPrime < this.generatorFunction &&
+                this.generatorFunction % fermatPrime > 0
+            ) {
+                this.publickey = fermatPrime;
+                break;
+            }
+        }
+
         // to properly implement the exercise we need to implement a sieve and then
         // check each calculated prime for coprimality, as there is a possibility that
         // all fermat_primes are not coprime to a calculated phi(g)
 
         // PublicKey
         // Choose e from fermat_primes
-        long fermat_primes[] = { 3, 5, 17, 257, 65537 };
-        this.publickey = 0;
-        for (int i = 0; i <= 4; i++) {
-            if (fermat_primes[i] < this.generatorFunction && this.generatorFunction % fermat_primes[i] > 0) {
-                this.publickey = fermat_primes[i];
-                break;
-            }
-        }
+
         if (this.publickey == 0) {
-            throw new ArithmeticException("Error couldn't find proper value for e");
+            throw new ArithmeticException(
+                "Error couldn't find proper value for e"
+            );
 
         }
         // System.out.println(this.publickey);
@@ -62,23 +70,25 @@ public class KeyPair {
         // we know that the gcd is 1 so we can abort when the remainder is 1
         while (r != 1) {
 
-            var quotient = oldR / r;
+            long quotient = oldR / r;
 
-            var rTemp = r;
+            long temp = r;
             r = oldR - quotient * r;
-            oldR = rTemp;
-
-            var sTemp = s;
+            oldR = temp;
+    
+            temp = s;
             s = oldS - quotient * s;
-            oldS = sTemp;
-
-            var tTemp = t;
+            oldS = temp;
+    
+            temp = t;
             t = oldT - quotient * t;
-            oldT = tTemp;
+            oldT = temp;
         }
+
         if (t < 0) {
             t *= -1;
         }
+        
         this.privatekey = this.generatorFunction - t;
     }
 }

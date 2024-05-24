@@ -4,19 +4,58 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("setup test"); // [TEST]
+        //[SETUP TEST]
+        {
+            System.out.println("setup test");
+        }
 
-        Filemanager testFileManager = new Filemanager( // [FILEMANAGERTEST]
-                "RSA\\extern\\test.txt"); // test.txt manuell erstellen
+        //[FILEMANAGER TEST]
+        {
+            Filemanager testFileManager = new Filemanager(
+                "RSA\\extern\\test.txt");
+            
+            testFileManager.write("This is test content.");
+            
+            String content = testFileManager.read();
 
-        testFileManager.write("This is test content.");
-        KeyPair keyPair = new KeyPair(431, 19);
-        keyPair.generateKeyPair();
-        System.out.println("Publickey: {" + keyPair.getPublicKey() + "," + keyPair.getGeneratorNumber() + "}");
-        System.out.println("Privatekey : {" + keyPair.getPrivateKey() + "," + keyPair.getGeneratorNumber() + "}");
+            System.out.println(content);
 
-        String content = testFileManager.read();
+        }
 
-        System.out.println(content);
+        //[KEYPAIR TEST]
+        {
+            KeyPair keyPair = new KeyPair(431, 19);
+            keyPair.generateKeyPair();
+
+            System.out.println(
+                "Publickey: {" +
+                keyPair.getPublicKey() +
+                "," +
+                keyPair.getGeneratorNumber() +
+                "}"
+            );
+
+            System.out.println(
+                "Privatekey : {" +
+                keyPair.getPrivateKey() +
+                "," +
+                keyPair.getGeneratorNumber() +
+                "}"
+            );
+
+        }
+
+        //[SIGNATURE TEST]
+        {
+            Signature testSignature = new Signature(
+                new KeyPair(431, 19),
+                new Filemanager(
+                    "RSA\\extern\\test.txt")
+            );
+
+            testSignature.generateChecksum();
+
+            System.out.println(testSignature.getChecksum());
+        }
     }
 }

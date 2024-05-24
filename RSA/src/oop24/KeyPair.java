@@ -34,12 +34,12 @@ public class KeyPair {
 
     public void generateKeyPair() {
 
-        // to properly implement the exercise we need to implement a sieve to check if
-        // the gcd is a prime
+        // to properly implement the exercise we need to implement a sieve and then
+        // check each calculated prime for coprimality
 
         // PublickKey
         // Choose e from fermat_primes
-        long fermat_primes[] = { 3, 5, 17, 257, 65537 };
+        long fermat_primes[] = { 3, 5, 7, 17, 257, 65537 };
         this.publickey = 0;
         for (int i = 0; i <= 4; i++) {
             if (fermat_primes[i] < this.generatorFunction && this.generatorFunction % fermat_primes[i] > 0) {
@@ -85,7 +85,10 @@ public class KeyPair {
             t = oldT - quotient * t;
             oldT = tTemp;
         }
-        this.privatekey = oldS * a + oldT * b;
+        if (t < 0) {
+            t *= -1;
+        }
+        this.privatekey = this.generatorFunction - t;
         System.out.println(oldS);
         System.out.println(oldT);
         System.out.println(oldR);

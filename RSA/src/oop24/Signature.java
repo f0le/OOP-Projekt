@@ -15,11 +15,6 @@ public class Signature {
         this.message = filemanger.read();
     }
 
-    public void setMessage(String message) {
-
-        this.message = message;
-    }
-
     public String getMessage() {
 
         return this.message;
@@ -41,5 +36,37 @@ public class Signature {
         this.checksum = checksum;
     }
 
-    //TODO                                                                       // [IMPLEMENTIERUNG FEHLT TLW.]
+    public long signMessage() {
+
+        long privateKey = keyPair.getPrivateKey();
+        long generatorNumber = keyPair.getGeneratorNumber();
+
+        return powMod(this.checksum, privateKey, generatorNumber);
+    }
+
+    public boolean verifySignature(long signature) {
+
+        long publicKey = keyPair.getPublicKey();
+        long generatorNumber = keyPair.getGeneratorNumber();
+
+        long decryptedChecksum = powMod(signature, publicKey, generatorNumber);
+
+        return decryptedChecksum == this.checksum;
+    }
+
+    private long powMod(long base, long exponent, long modulus) {
+
+        if(modulus == 1) return 0;
+
+        long result = 1;
+
+        while (exponent > 0) {
+            if (exponent % 2 == 1) {
+                result = (result * base) % modulus;
+            }
+            exponent = exponent >> 1;
+            base = (base * base) % modulus;
+        }
+        return result;
+    }
 }

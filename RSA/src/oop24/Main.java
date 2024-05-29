@@ -54,8 +54,12 @@ public class Main {
             );
 
             testSignature.generateChecksum();
+            long encryptedTestSignature = testSignature.signMessage();
 
             System.out.println(testSignature.getChecksum());
+            System.out.println(encryptedTestSignature);
+            System.out.println(testSignature.verifySignature(encryptedTestSignature));
+            System.out.println(testSignature.verifySignature(12345));
         }
     }
 }

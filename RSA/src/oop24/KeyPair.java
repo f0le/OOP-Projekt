@@ -12,6 +12,7 @@ public class KeyPair {
 
         this.generatorFunction = (prime1 - 1) * (prime2 - 1);
         this.generatorNumber = prime1 * prime2;
+        this.generateKeyPair();;
     }
 
     public long getPrivateKey() {

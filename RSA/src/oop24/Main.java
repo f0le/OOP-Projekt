@@ -1,5 +1,7 @@
 package oop24;
 
+import java.math.BigInteger;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -53,7 +55,6 @@ public class Main {
                     "RSA\\extern\\test.txt")
             );
 
-            testSignature.generateChecksum();
             long encryptedTestSignature = testSignature.signMessage();
 
             System.out.println(testSignature.getChecksum());

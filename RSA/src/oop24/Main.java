@@ -6,54 +6,50 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //[SETUP TEST]
+        // [SETUP TEST]
         {
             System.out.println("setup test");
         }
 
-        //[FILEMANAGER TEST]
+        // [FILEMANAGER TEST]
         {
             Filemanager testFileManager = new Filemanager(
-                "RSA\\extern\\test.txt");
-            
+                    "RSA\\extern\\test.txt");
+
             testFileManager.write("This is test content.");
-            
+
             String content = testFileManager.read();
 
             System.out.println(content);
 
         }
 
-        //[KEYPAIR TEST]
+        // [KEYPAIR TEST]
         {
             KeyPair keyPair = new KeyPair(431, 19);
-            keyPair.generateKeyPair();
 
             System.out.println(
-                "Publickey: {" +
-                keyPair.getPublicKey() +
-                "," +
-                keyPair.getGeneratorNumber() +
-                "}"
-            );
+                    "Publickey: {" +
+                            keyPair.getPublicKey() +
+                            "," +
+                            keyPair.getGeneratorNumber() +
+                            "}");
 
             System.out.println(
-                "Privatekey : {" +
-                keyPair.getPrivateKey() +
-                "," +
-                keyPair.getGeneratorNumber() +
-                "}"
-            );
+                    "Privatekey : {" +
+                            keyPair.getPrivateKey() +
+                            "," +
+                            keyPair.getGeneratorNumber() +
+                            "}");
 
         }
 
-        //[SIGNATURE TEST]
+        // [SIGNATURE TEST]
         {
             Signature testSignature = new Signature(
-                new KeyPair(431, 19),
-                new Filemanager(
-                    "RSA\\extern\\test.txt")
-            );
+                    new KeyPair(431, 19),
+                    new Filemanager(
+                            "RSA\\extern\\test.txt"));
 
             long encryptedTestSignature = testSignature.signMessage();
 

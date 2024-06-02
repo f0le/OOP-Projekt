@@ -17,6 +17,7 @@ public class KeyPair {
     private long generatorFunction;
     private ArrayList<Long> primes = new ArrayList<Long>();
     private long[] seedPrimes;
+    private boolean testedNumber = false;
 
     /**
      * Constructor for the KeyPair class
@@ -144,25 +145,32 @@ public class KeyPair {
             for (long possiblePrime = seedPrimes[199]; possiblePrime < Long.MAX_VALUE; possiblePrime++) {
                 for (long prime : primes) {
                     // check if the value is a prime
+                    // this is wrong?
                     if (possiblePrime % prime > 0) {
-                        // check for coprimality with the generator function
-                        if (possiblePrime < this.generatorFunction && this.generatorFunction % possiblePrime > 0) {
-                            this.publickey = possiblePrime;
-                            break;
-                        }
-                        // if the tested number is no candidate for e but is a prime, add it to the
-                        // sieve to improve the subsequent calculation
-                        if (possiblePrime % prime > 0) {
-                            primes.add(possiblePrime);
-                        }
+                        testedNumber = true;
+                    } else {
+                        testedNumber = false;
+                        break;
                     }
                 }
+                if (testedNumber == true) {
+                    // if the tested number is prime, add it to the
+                    // sieve to improve the subsequent calculation
+                    primes.add(possiblePrime);
+                }
+                // check tested number for coprimality with the generator function
+                if (possiblePrime < this.generatorFunction && this.generatorFunction % possiblePrime > 0) {
+                    this.publickey = possiblePrime;
+                    break;
+                }
             }
-            // it may happen that we don't have a value before the above loop overflows
-            if (this.publickey == 0) {
-                throw new ArithmeticException(
-                        "Error couldn't find proper value for e");
-            }
+        }
+        // it may happen that we don't have a value before the above loop overflows
+        if (this.publickey == 0)
+
+        {
+            throw new ArithmeticException(
+                    "Error couldn't find proper value for e");
         }
 
         // PrivateKey

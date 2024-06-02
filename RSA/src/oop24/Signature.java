@@ -2,8 +2,6 @@ package oop24;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.zip.CRC32;
 
 /**
@@ -31,7 +29,7 @@ public class Signature {
 
         this.keyPair = keyPair;
         this.message = filemanager.read();
-        generateChecksum();
+        generateChecksumAlt();
     }
 
     /**
@@ -53,8 +51,7 @@ public class Signature {
     }
     
     /**
-     * Generiert aus der Nachricht einen SHA-256 Hash und setzt das checksum
-     * Feld der Klasse mit den ersten 8 Bytes des Hashes.
+     * Generiert aus der Nachricht einen CRC32 Hash und setzt das checksum Feld
      */
     public void generateChecksum() {
         CRC32 crc = new CRC32();
@@ -67,6 +64,21 @@ public class Signature {
     }
 
     /**
+     * Generiert einen alternativen Hash mittels XOR für kleinere Schlüsselpaare
+     */
+    public void generateChecksumAlt() {
+        
+        byte[] bytes = message.getBytes();
+        long checksum = 0;
+        for(byte b : bytes) {
+            checksum ^= b;
+        }
+
+        System.out.println("Checksum: " + checksum);
+        this.checksum = BigInteger.valueOf(checksum);
+    }
+
+    /**
      * Signiert eine Nachricht mittel privatem Schlüssel und Generatorzahl.
      * @return signierte Nachricht als BigInteger
      */
@@ -76,9 +88,9 @@ public class Signature {
         BigInteger signature = this.checksum.modPow(privateKey, generatorNumber);
 
         // Debug-Ausgabe für die Signatur
-        System.out.println("Private Key: " + privateKey);
+/*         System.out.println("Private Key: " + privateKey);
         System.out.println("Generator Number: " + generatorNumber);
-        System.out.println("Signature: " + signature);
+        System.out.println("Signature: " + signature); */
 
         return signature;
     }
@@ -95,9 +107,9 @@ public class Signature {
         BigInteger decryptedChecksum = signature.modPow(publicKey, generatorNumber);
 
         // Debug
-        System.out.println("Public Key: " + publicKey);
+/*         System.out.println("Public Key: " + publicKey);
         System.out.println("Decrypted Checksum: " + decryptedChecksum);
-        System.out.println("Original Checksum: " + checksum);
+        System.out.println("Original Checksum: " + checksum); */
 
         return decryptedChecksum.equals(this.checksum);
     }

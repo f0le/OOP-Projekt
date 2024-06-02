@@ -1,32 +1,38 @@
-<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>460</x><y>190</y><w>210</w><h>210</h></coordinates><panel_attributes>Signatur
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>60</x><y>310</y><w>400</w><h>220</h></coordinates><panel_attributes>Signatur
 -
-- key: Key
-- checksum: int
+- keyPair: KeyPair
+- checksum: BigInteger
 - message: String
 -
-+Signatur( key: Key ) : Signatur
++ Signatur( keyPair: KeyPair, filemanager: Filemanager ) : Signatur
 
-+setMessage( path : String ) : void
-+getMessage( ) : String
++ getMessage( ) : String
++ getChecksum( ): BigInteger
 
--generateChecksum( ): void
-+sign ( ): int
-+checkSign ( checksum: int ) : int
+- generateChecksum( ): void
+- generateChecksumAlt( ): void
++ signMessage( ): BigInteger 
++ verifySignature ( signatue: BigInteger ) : boolean
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>450</y><w>390</w><h>220</h></coordinates><panel_attributes>Key
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>500</x><y>310</y><w>390</w><h>180</h></coordinates><panel_attributes>KeyPair
 -
--privateKey: int
--publicKey: int
--generatornumber: int
--generatorfunction: int
+- privatekey: long
+- publickey: long
+- generatornumber: long
+- generatorfunction: long
 -
-+getPrivateKey: int
-+getPublicKey: int
-+getGeneratornumber: int
++ KeyPair( prime1: int, prime2: int ): KeyPair
 
--calculateGeneratornumber ( prime1: int, prime2: int ) : void
--calculateGeneratorfunktion ( prime1: int, prime2: int ) : void
--generatePublicKey ( ) : void
--generatePrivateKey ( ) : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>190</y><w>170</w><h>50</h></coordinates><panel_attributes>Main
++ getPrivateKey: long
++ getPublicKey: long
++ getGeneratornumber: long</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>120</y><w>170</w><h>50</h></coordinates><panel_attributes>Main
 -
-+ main( args: String[] ): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>390</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element></diagram>
++ main( args: String[] ): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>120</y><w>210</w><h>120</h></coordinates><panel_attributes>Filemanager
+-
+- filePath: String
+-
++ Filemanager( filePath: String ): Filemanager
+
++ read(): String
++ write(message: String): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>230</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>410</y><w>70</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;50;10</additional_attributes></element></diagram>

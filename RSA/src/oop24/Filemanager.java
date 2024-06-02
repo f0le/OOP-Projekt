@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.file.*;                                                     //für die Aufgabe
 
 /**
- * Die Filemanager Klasse handelt das lesen & schreiben von Dateien.
+ * Die Filemanager Klasse handelt das lesen und schreiben von Dateien.
  * 
  * @author Peter Krahl
  * @author Patrick Folie
@@ -16,7 +16,7 @@ public class Filemanager {
     private String filePath;
 
     /**
-     * Kontrstuktor für die Filemanager Klasse. Nimmt einen PFad zu der Datei.
+     * Kontrstuktor für die Filemanager Klasse. Nimmt einen Pfad zu der Datei.
      * @param filePath Dateipfad
      */
     public Filemanager(String filePath) {

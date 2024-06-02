@@ -13,7 +13,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        KeyPair keyNachricht1 = new KeyPair(431, 19);
+        KeyPair keyNachricht1 = new KeyPair(47573, 59303);
 
         System.out.println(
             "Publickey: {" +

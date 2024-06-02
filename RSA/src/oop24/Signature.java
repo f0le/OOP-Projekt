@@ -18,7 +18,6 @@ import java.util.zip.CRC32;
 public class Signature {
     
     private KeyPair keyPair;
-    private Filemanager filemanager;
     private BigInteger checksum;
     private String message;
 
@@ -28,11 +27,10 @@ public class Signature {
      * @param keyPair Schlüsselpaar
      * @param filemanager filemanager
      */
-    public Signature(KeyPair keyPair, Filemanager filemanger) {
+    public Signature(KeyPair keyPair, Filemanager filemanager) {
 
-        this.filemanager = filemanager;
         this.keyPair = keyPair;
-        this.message = filemanger.read();
+        this.message = filemanager.read();
         generateChecksum();
     }
 
@@ -65,21 +63,24 @@ public class Signature {
         this.checksum = BigInteger.valueOf(checksumValue);
 
         // Debug-Ausgabe für Checksumme
-        System.out.println("Checksum: " + this.checksum);
+        System.out.println("Checksum (CRC32): " + this.checksum);
     }
-
 
     /**
      * Signiert eine Nachricht mittel privatem Schlüssel und Generatorzahl.
-     * @return signierte Nachricht als long
+     * @return signierte Nachricht als BigInteger
      */
     public BigInteger signMessage() {
-
         BigInteger privateKey = BigInteger.valueOf(keyPair.getPrivateKey());
         BigInteger generatorNumber = BigInteger.valueOf(keyPair.getGeneratorNumber());
+        BigInteger signature = this.checksum.modPow(privateKey, generatorNumber);
 
-        //return this.checksum.modPow(privateKey, generatorNumber);
-        return powMod(this.checksum, privateKey, generatorNumber);
+        // Debug-Ausgabe für die Signatur
+        System.out.println("Private Key: " + privateKey);
+        System.out.println("Generator Number: " + generatorNumber);
+        System.out.println("Signature: " + signature);
+
+        return signature;
     }
 
     /**
@@ -89,14 +90,12 @@ public class Signature {
      * @return Boolean ob mit Prüfsumme übereinstimmend
      */
     public boolean verifySignature(BigInteger signature) {
-
         BigInteger publicKey = BigInteger.valueOf(keyPair.getPublicKey());
         BigInteger generatorNumber = BigInteger.valueOf(keyPair.getGeneratorNumber());
+        BigInteger decryptedChecksum = signature.modPow(publicKey, generatorNumber);
 
-        //BigInteger decryptedChecksum = signature.modPow(publicKey, generatorNumber);
-        BigInteger decryptedChecksum = powMod(signature, publicKey, generatorNumber);
-
-        //Debug
+        // Debug
+        System.out.println("Public Key: " + publicKey);
         System.out.println("Decrypted Checksum: " + decryptedChecksum);
         System.out.println("Original Checksum: " + checksum);
 

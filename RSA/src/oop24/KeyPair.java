@@ -153,6 +153,7 @@ public class KeyPair {
      * @return long, value of the generatornumber
      **/
     public long getGeneratorNumber() {
+        
         return this.generatorNumber;
     }
 }

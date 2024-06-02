@@ -1,9 +1,11 @@
 package oop24;
 
+import java.util.ArrayList;
+
 /**
  * This class implements the RSA Keygeneration and helper functions.
  *
- * @author Patrick Folie
+ * @author Patrick Folie, Peter Krahl
  * @version 1.0
  */
 
@@ -13,26 +15,119 @@ public class KeyPair {
     private long publickey = 0;
     private long generatorNumber;
     private long generatorFunction;
+    private ArrayList<Long> primes = new ArrayList<Long>();
+    private long[] seedPrimes;
 
-    /*
-     * Constructor constructs the keypair and calculates the public and private keys
-     */
+    /**
+     * Constructor for the KeyPair class
+     * needs two primes to generate the KeyPair
+     * 
+     * @param int prime1
+     * @param int prime2
+     *
+     **/
     public KeyPair(int prime1, int prime2) {
 
         this.generatorFunction = (prime1 - 1) * (prime2 - 1);
         this.generatorNumber = prime1 * prime2;
+        this.seedSieve();
+        this.generateKeyPair();
+    }
 
-        // seed the sieve with the first 200 prime numbers + the last fermat prime
-        int[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
-                101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
-                211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331,
+    /**
+     * This method returns the privatekey portion of the key without the
+     * generatornumber
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * get_PrivateKey()
+     * </code>
+     *
+     * @return long, value of the private key portion
+     **/
+    public long getPrivateKey() {
+
+        return this.privatekey;
+    }
+
+    /**
+     * This method returns the publickey portion of the key without the
+     * generatornumber
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * getPublicKey()
+     * </code>
+     *
+     * @return long, value of the public key portion
+     **/
+    public long getPublicKey() {
+
+        return this.publickey;
+    }
+
+    /**
+     * This method calculates the generatornumber
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * getGeneratorNumber()
+     * </code>
+     *
+     * @return long, value of the generatornumber
+     **/
+    public long getGeneratorNumber() {
+
+        return this.generatorNumber;
+    }
+
+    /**
+     * This method seeds the sieve with the first 200 primes for faster key
+     * generation
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * seedSieve()
+     * @return void, no return value
+     * </code>
+     *
+     **/
+    private void seedSieve() {
+
+        // seed the sieve with the first 200 prime numbers
+        long seedPrimes[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+                89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193,
+                197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313,
+                317, 331,
                 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457,
                 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,
                 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733,
                 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877,
                 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019,
                 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123,
-                1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 65537 };
+                1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223 };
+
+        for (long seedPrime : seedPrimes) {
+            primes.add(seedPrime);
+        }
+    }
+
+    /**
+     * This method calculates the public and private key portion of the KeyPair
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * generateKeyPair()
+     * @return void, no return value
+     * </code>
+     *
+     **/
+    private void generateKeyPair() {
 
         // check if a prime of the first 200 primes works
         for (long prime : primes) {
@@ -41,16 +136,24 @@ public class KeyPair {
                 break;
             }
         }
+        // checks if a prime of the sieve is already a good fit for e,
+        // otherwise check all following numbers if they pass the requirements
+        // aborts before the tested value overflows
         if (this.publickey == 0) {
             // aborts before the tested value overflows
-            for (long prime = primes[199]; prime < Long.MAX_VALUE; prime++) {
-                for (long i : primes) {
+            for (long possiblePrime = seedPrimes[199]; possiblePrime < Long.MAX_VALUE; possiblePrime++) {
+                for (long prime : primes) {
                     // check if the value is a prime
-                    if (prime % i > 0) {
+                    if (possiblePrime % prime > 0) {
                         // check for coprimality with the generator function
-                        if (prime < this.generatorFunction && this.generatorFunction % prime > 0) {
-                            this.publickey = prime;
+                        if (possiblePrime < this.generatorFunction && this.generatorFunction % possiblePrime > 0) {
+                            this.publickey = possiblePrime;
                             break;
+                        }
+                        // if the tested number is no candidate for e but is a prime, add it to the
+                        // sieve to improve the subsequent calculation
+                        if (possiblePrime % prime > 0) {
+                            primes.add(possiblePrime);
                         }
                     }
                 }
@@ -107,53 +210,4 @@ public class KeyPair {
         this.privatekey = this.generatorFunction - t;
     }
 
-    /**
-     * This method returns the privatekey portion of the key without the
-     * generatornumber
-     * <p>
-     * Usage:
-     * <p>
-     * <code>
-     * get_PrivateKey()
-     * </code>
-     *
-     * @return long, value of the private key portion
-     **/
-    public long getPrivateKey() {
-
-        return this.privatekey;
-    }
-
-    /**
-     * This method returns the publickey portion of the key without the
-     * generatornumber
-     * <p>
-     * Usage:
-     * <p>
-     * <code>
-     * getPublicKey()
-     * </code>
-     *
-     * @return long, value of the public key portion
-     **/
-    public long getPublicKey() {
-
-        return this.publickey;
-    }
-
-    /**
-     * This method calculates the generatornumber
-     * <p>
-     * Usage:
-     * <p>
-     * <code>
-     * getGeneratorNumber()
-     * </code>
-     *
-     * @return long, value of the generatornumber
-     **/
-    public long getGeneratorNumber() {
-        
-        return this.generatorNumber;
-    }
 }

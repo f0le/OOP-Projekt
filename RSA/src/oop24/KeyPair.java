@@ -142,7 +142,7 @@ public class KeyPair {
         // aborts before the tested value overflows
         if (this.publickey == 0) {
             // aborts before the tested value overflows
-            for (long possiblePrime = seedPrimes[199]; possiblePrime < Long.MAX_VALUE; possiblePrime++) {
+            for (long possiblePrime = seedPrimes[199]; possiblePrime < Long.MAX_VALUE; ++possiblePrime) {
                 for (long prime : primes) {
                     // check if the value is a prime
                     // this is wrong?

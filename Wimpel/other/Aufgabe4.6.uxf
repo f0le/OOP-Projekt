@@ -1,0 +1,39 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>130</x><y>0</y><w>170</w><h>50</h></coordinates><panel_attributes>Main
+-
++ main( args: String[] ): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>130</x><y>180</y><w>160</w><h>100</h></coordinates><panel_attributes>Wimpel
+-
+- wimpelfarbe: char
+-
++ Wimpel( ): Wimpel
+
++ getWimpelFarbe( ): char
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>180</y><w>210</w><h>130</h></coordinates><panel_attributes>Wimpelkette
+-
+- wimpelkette: LinkedList&lt;Wimpel&gt;
+-
++ Wimpelkette( ): Wimpelkette
+
++ getNode( ): Wimpel
++ setNode( ): void
++ addNode( wimpel: Wimpel ): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>380</y><w>360</w><h>190</h></coordinates><panel_attributes>Wimpelliste
+-
+- wimpel: int[]
+- maxAnzahl: int
+- wimpelAnzahl: int
+-
++ Wimpelliste( wimpelkette: LinkedList&lt;Wimpel&gt; ): Wimpelliste
+
++ getMaxAnzahl( ): int
++ getWimpelAnzahl: int
++ quality( wimpel: Wimpel ): int[]
+
+- removeNode() : void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>610</x><y>300</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>230</y><w>270</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;250;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>0</y><w>410</w><h>110</h></coordinates><panel_attributes>Sort
+-
+
+-
++ Sort( ): Sort
+
++ sortWimpelkette( wimpelkette: Wimpelkette, wimpel: Wimpel ): void 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>100</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element></diagram>

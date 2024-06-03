@@ -23,9 +23,8 @@ public class KeyPair {
      * Constructor for the KeyPair class
      * needs two primes to generate the KeyPair
      * 
-     * @param int prime1
-     * @param int prime2
-     *
+     * @param prime1 int, primenumber
+     * @param prime2 int, primenumber
      **/
     public KeyPair(int prime1, int prime2) {
 

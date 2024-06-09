@@ -1,13 +1,14 @@
 package oop24;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Wimpelkette {
 
-    private LinkedList<Wimpel> Wimpelkette;
+    private ArrayList<Wimpel> wimpelListe;
 
-    public Wimpelkette() {
+    public Wimpelkette(ArrayList<Wimpel> wimpelListe) {
 
+        this.wimpelListe = new ArrayList<>(wimpelListe);
     }
 
     public getNode() {

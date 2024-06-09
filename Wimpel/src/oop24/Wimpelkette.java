@@ -11,14 +11,11 @@ public class Wimpelkette {
         this.wimpelListe = new ArrayList<>(wimpelListe);
     }
 
-    public getNode() {
+    private Ergebnis generiereOptimaleKette(char[] kette, int position, Ergebnis bestErgebnis) {
+
+        // in der Theorie wollen wir hier ja immer unser (bisher) bestes Ergebnis übergeben und eine
+        // Kondition haben, die abbricht, sobald wir kein bessere finden
     }
 
-    public setNode() {
-    }
-
-    public addNode(Wimpel wimpel) {
-        Wimpelkette.add(wimpel);
-    }
-
+    // aboslut noch nicht fertig, hatte hier nen Knoten im Kopf und mache die Tage weite :DD
 }

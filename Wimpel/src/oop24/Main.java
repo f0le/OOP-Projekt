@@ -12,7 +12,9 @@ public class Main {
 
         Wimpelkette wimpelkette = new Wimpelkette(wimpelanzahl, wimpelfarbe);
         wimpelkette.generiereStandardKette(wimpelanzahl, wimpelfarbe);
+        // wimpelkette.generiereOptimaleKette(wimpenanzahl,wimpelfarbe);
         wimpelkette.printWimpelkette();
-        wimpelkette.getQuality(wimpelfarbe);
+        wimpelkette.printQuality();
+
     }
 }

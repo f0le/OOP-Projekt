@@ -17,6 +17,12 @@ public class Main {
         wimpelkette.printWimpelkette();
         wimpelkette.printQuality();
 
+        WimpelketteZwei wimpelkettezwei = new WimpelketteZwei(wimpelanzahl, wimpelfarbe);
+        Ergebnis ergebnis = wimpelkettezwei.generiereOptimaleKette();
+
+        System.out.println("Beste Kette:" + ergebnis.getKette());
+        System.out.println("Placeholder Anzahl bestmöglicher Lösungen.");
+
         // Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
         // wimpelkette1.printWimpelkette();
         // wimpelkette1.printQuality();

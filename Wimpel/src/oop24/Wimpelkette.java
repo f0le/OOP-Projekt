@@ -1,10 +1,10 @@
 package oop24;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Wimpelkette {
 
-    private int[] countlist;
     // helper variables for calculating the quality of a wimpelkette
     private int distance;
     private int minDistance;
@@ -12,65 +12,86 @@ public class Wimpelkette {
     // stores the quality of a wimpelkette, first element is the distance, second
     // the frequency of that distance
     private int[] quality = new int[2];
-    private ArrayList<Wimpel> wimpelkette = new ArrayList<Wimpel>();
-    private ArrayList<String> colorlist;
+    private ArrayList<Wimpel> wimpelkette;
+    private ArrayList<Character> colorlist;
+    private ArrayList<Integer> countlist;
     private int max = 0;
-    private char maxCountColor;
+    private int maxindex;
     private boolean occurrence = true;
+    private int iteration;
+    private int position;
 
     public Wimpelkette(int[] count, char[] color) {
 
-        // arrayelements have the corresponding number of colored wimpels
-        this.countlist = count;
-        // this.colorlist = color;
         this.wimpelkette = new ArrayList<Wimpel>();
+        // initialize the arraylist
+        this.countlist = new ArrayList<Integer>();
+        for (int i = 0; i < color.length; i++) {
+            countlist.add(count[i]);
+        }
+        // initialize the arraylist
+        this.colorlist = new ArrayList<Character>();
+        for (int i = 0; i < color.length; i++) {
+            colorlist.add(color[i]);
+        }
+
+        // this.generiereStandardKette(count, color);
+        this.generiereOptimaleKette(wimpelkette, 0, 0, this.countlist, this.colorlist);
     }
 
-    // private void generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, int
-    // position, int[] count, char[] color) {
+    // generate optimal solution recursively, iteration needs to be 0 on first
+    // invocation
+    private void generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, int iteration, int position,
+            ArrayList<Integer> countlist,
+            ArrayList<Character> colorlist) {
 
-    // einfach immer eine farbe mehr in die wimpelkette reinsortieren? und zwei
-    // arrays mit farbe und anzahl der wimpel uebergeben und dann einfach immer
-    // n-1
-    // der arrays verarbeiten. Und die Rekursion ist zu Ende wenn die beiden
-    // arrays
-    // abgearbeitet wurden?
-    // Von den Farben mit den meisten Vorkommen anfangen und dann die anderen
-    // farben
-    // so reinsortieren, dass die qualitaet besser wird? Oder einfach vorher
-    // ueberlegt wie es am optimalsten reinvertielt wird?
-    // das einfach ueber die position des iterators bei dem inkrementieren von
-    // den
-    // arrays machen?
+        // abbruchbedingung wenn alle farben sortiert wurden
+        if (colorlist.isEmpty()) {
+            return;
+        }
 
-    /*
-     * // abbruchsbedingung
-     * // if(){return;}
-     * for (int i = 0; i < count.length; i++) {
-     * if (count[i] > max) {
-     * this.max = count[i];
-     * this.maxCountColor = color[i];
-     * }
-     * position++;
-     * }
-     * // wenn wimpelkette leer initialisiere mit farbe von max elementen, das sind
-     * // dann gleichzeitig die buckets in die reinsortiert wird
-     * if (wimpelkette.isEmpty()) {
-     * for (int i = 0; i <= max; i++) {
-     * wimpelkette.add();
-     * }
-     * }
-     * generiereOptimaleKette(wimpelkette, position, count, color);
-     * }
-     */
+        // bestimme die am haufigsten vorkommende farbe und ihren index
+        max = Collections.max(countlist);
+        maxindex = countlist.indexOf(max);
+        System.out.println(max);
+        System.out.println(maxindex);
+
+        // wenn wimpelkette leer initialisiere mit farbe von max vorkommenden elementen,
+        // das sind
+        // dann gleichzeitig die buckets in die reinsortiert wird
+        // setze den iterator dann richtig, sodass immer nach den jetzt erstellten
+        // elementen einsortiert wird
+        if (wimpelkette.isEmpty()) {
+            // add the color as often as it is in the countlist
+            for (int i = 0; i <= max; i++) {
+                wimpelkette.add(new Wimpel(colorlist.get(maxindex)));
+            }
+            // remove the color and the used count of the colors from the lists
+            colorlist.remove(maxindex);
+            countlist.remove(maxindex);
+        }
+
+        // speichere die stelle des iterators, falls eine farbe weniger oft als max-1
+        // vorkommt um dann in naechstem loop fort die elemente einzusortieren
+        // generiereOptimaleKette(this.wimpelkette, iteration, position, this.countlist,
+        // this.colorlist);
+    }
 
     // generate unoptimized standardchain
     public void generiereStandardKette(int[] count, char[] color) {
         for (int i = 0; i < color.length; i++) {
             for (int j = 0; j < count[i]; j++) {
-                this.wimpelkette.add(new Wimpel(color[i]));
+                wimpelkette.add(new Wimpel(color[i]));
             }
         }
+    }
+
+    // gibt die Anzahl an Loesungen aus
+    public void printAnzahlLoesungen() {
+    }
+
+    // generiert permutationen und vergleicht mit der
+    public void generierePermutation() {
     }
 
     // calculates the quality of the current wimpelkette
@@ -78,13 +99,14 @@ public class Wimpelkette {
     public void getQuality(ArrayList<Wimpel> wimpelkette) {
         // store all colors of current wimpelkette and use that to generate the quality,
         // so we are independent of additional input
-        colorlist = new ArrayList<String>();
+        colorlist = new ArrayList<Character>();
         this.wimpelkette = wimpelkette;
 
-        for (int i = 0; i < this.wimpelkette.size(); i++) {
+        // stores all occurring colors of the input
+        for (int i = 0; i < wimpelkette.size(); i++) {
             for (int j = 0; j < colorlist.size(); j++) {
                 // color not already stored, store it
-                if (wimpelkette.get(i).getColor() == colorlist.get(j).charAt(0)) {
+                if (wimpelkette.get(i).getColor() == colorlist.get(j)) {
                     occurrence = true;
                     break;
                 } else {
@@ -92,17 +114,18 @@ public class Wimpelkette {
                 }
             }
             if (occurrence == false) {
-
+                colorlist.add(wimpelkette.get(i).getColor());
             }
         }
 
+        // determines the quality of the input
         for (int i = 0; i < colorlist.size(); i++) {
             frequency = 0;
             for (int j = 0; j < wimpelkette.size(); j++) {
-                if (wimpelkette.get(j).getColor() == colorlist.get(i).charAt(0)) {
+                if (wimpelkette.get(j).getColor() == colorlist.get(i)) {
                     for (int k = j + 1; k < wimpelkette.size(); k++) {
                         // vergleich j!=k nicht notwendig
-                        if (wimpelkette.get(k).getColor() == colorlist.get(i).charAt(0)) {
+                        if (wimpelkette.get(k).getColor() == colorlist.get(i)) {
                             // sollte nicht negativ werden so
                             distance = k - j;
                             j = k;
@@ -131,7 +154,7 @@ public class Wimpelkette {
 
     // prints the quality of the current wimpelkette
     public void printQuality() {
-        getQuality(wimpelkette);
+        getQuality(this.wimpelkette);
         System.out.print("Qualitaet: (" + quality[0] + "," + quality[1] + ")\n");
     }
 

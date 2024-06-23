@@ -14,23 +14,15 @@ public class Main {
         int[] wimpelanzahl2 = new int[] { 2, 1 };
 
         Wimpelkette wimpelkette = new Wimpelkette(wimpelanzahl, wimpelfarbe);
-        wimpelkette.generiereStandardKette(wimpelanzahl, wimpelfarbe);
-        // wimpelkette.generiereOptimaleKette(wimpenanzahl,wimpelfarbe);
         wimpelkette.printWimpelkette();
         wimpelkette.printQuality();
 
-        /*
-         * Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
-         * wimpelkette1.generiereStandardKette(wimpelanzahl1, wimpelfarbe1);
-         * // wimpelkette.generiereOptimaleKette(wimpenanzahl,wimpelfarbe);
-         * wimpelkette1.printWimpelkette();
-         * wimpelkette1.printQuality();
-         * 
-         * Wimpelkette wimpelkette2 = new Wimpelkette(wimpelanzahl2, wimpelfarbe2);
-         * wimpelkette2.generiereStandardKette(wimpelanzahl2, wimpelfarbe2);
-         * // wimpelkette.generiereOptimaleKette(wimpenanzahl,wimpelfarbe);
-         * wimpelkette2.printWimpelkette();
-         * wimpelkette2.printQuality();
-         */
+        // Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
+        // wimpelkette1.printWimpelkette();
+        // wimpelkette1.printQuality();
+
+        // Wimpelkette wimpelkette2 = new Wimpelkette(wimpelanzahl2, wimpelfarbe2);
+        // wimpelkette2.printWimpelkette();
+        // wimpelkette2.printQuality();
     }
 }

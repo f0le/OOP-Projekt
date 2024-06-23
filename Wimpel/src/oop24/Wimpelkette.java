@@ -29,6 +29,7 @@ public class Wimpelkette {
     private char color;
     private char lastColor;
     private int[] qualityResult;
+    private int countSolution;
 
     public Wimpelkette(int[] count, char[] color) {
 
@@ -45,7 +46,7 @@ public class Wimpelkette {
 
     // generate optimal solution recursively, iteration needs to be 0 on first
     // invocation
-    private int generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, ArrayList<Wimpel> result, ArrayList<Wimpel> unsortedwimpel, char lastColor, int[] qualityResult) {
+    private int generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, ArrayList<Wimpel> result, ArrayList<Wimpel> unsortedwimpel, char lastColor, int[] qualityResult, int countSolution) {
 
         // prueft ob die liste mit den unsortierten wimpeln leer ist
         for (int i = 0; i < unsortedwimpel.size(); i++) {
@@ -56,34 +57,32 @@ public class Wimpelkette {
             }
         }
         // abbruchbedingung, alle wimpel wurden sortiert
-        if (unsortedwimpel.wimpelEmpty(ArrayList<Wimpel> unsortedwimpel)) {
-            return count;
-        }
-
-        // bestimme die am haufigsten vorkommende farbe und ihren index
-        // max = Collections.max(unsortedwimpel);
-        // maxindex = unsortedwimpel.indexOf(max);
-
-        // wenn wimpelkette leer initialisiere mit farbe von max vorkommenden elementen,
-        // das sind
-        // dann gleichzeitig die buckets in die reinsortiert wird
-        // setze den iterator dann richtig, sodass immer nach den jetzt erstellten
-        // elementen einsortiert wird
-        if (wimpelkette.isEmpty()) {
-            wimpelkette.add(new Wimpel(unsortedwimpel.get(getMaxCountElement(unsortedwimpel))));
-        }
-        for (Wimpel wimpel : unsortedwimpel) {
-            if (wimpel.getCount() > 0 && wimpel.getColor() != currentColor) {
-                wimpelkette.add() 
-                wimpel.setCount(wimpel.getCount()-1);
+        if (wimpelEmpty(unsortedwimpel)) {
+            //hier methode fuer kette vergleichen und falls qualitaet besser dann setze aktuelle kette als beste kette
+            // falls die qualitaet der gefundenen wimpelkette hoeher ist, dann setze die anzahl der loesungen auf 1
+            //auch hier das attribut erhoehen, falls die qualitaet der gefundenen wimpelkette gleich ist der aktuellel
+            for(int i=0;i<2;i++){
+                if(wimpelkette.getQuality()) {
+                }
             }
         }
 
-        // speichere die stelle des iterators, falls eine farbe weniger oft als max-1
-        // vorkommt um dann in naechstem loop fort die elemente einzusortieren
-        // generiereOptimaleKette(this.wimpelkette, this.countlist,
-        // this.colorlist, result);
-        return qualityResult 
+        // wenn wimpelkette leer initialisiere mit farbe von max vorkommenden elementen,
+        // das sind
+        if (wimpelkette.isEmpty()) {
+            wimpelkette.add(new Wimpel(unsortedwimpel.get(getMaxCountElement()).getColor(), 1));
+        }
+        for (int i=0;i<unsortedwimpel.size();i++) {
+            if (unsortedwimpel.get(i).getCount() > 0 && unsortedwimpel.get(i).getColor() != unsortedwimpel.get(i-1).getColor()) {
+                wimpelkette.add(new Wimpel);
+                unsortedwimpel.set(i, unsortedwimpel.get(i).getCount()-1);
+            }
+        }
+        for (int i=0;i<wimpelkette.size();i++) {
+            System.out.print(wimpelkette.get(i));
+        }
+
+        generiereOptimaleKette(wimpelkette, result, unsortedwimpel, lastColor, qualityResult, countSolution);
     }
 
     // generate unoptimized standardchain
@@ -107,23 +106,20 @@ public class Wimpelkette {
         return empty;
     }
 
+    // TODO finish
     // calculates max distance of a set color from an existing wimpellist
-    public int getMaxDistance(ArrayList<Wimpel> wimpelkette, char color) {
-        this.color = color;
-        this.wimpelkette = wimpelkette;
-        for (Wimpel wimpel : this.wimpelkette) {
-            if
+    public int getMaxDistance(char color) {
+        for (Wimpel wimpel : wimpelkette) {
         }
         return maxindex;
     }
 
-    public int getMaxCountElement(ArrayList<Wimpel> wimpelkette) {
-        this.wimpelkette = wimpelkette;
+    public int getMaxCountElement() {
         max = 0;
         maxindex = 0;
-        for (int i = 0; i < this.wimpelkette.size(); i++) {
-            if (this.wimpelkette.get(i).getCount() > max) {
-                max = this.wimpelkette.get(i).getCount();
+        for (int i = 0; i < wimpelkette.size(); i++) {
+            if (wimpelkette.get(i).getCount() > max) {
+                max = wimpelkette.get(i).getCount();
                 maxindex = i;
             }
         }
@@ -133,11 +129,10 @@ public class Wimpelkette {
     // calculates the quality of the current wimpelkette
     // parameter is the wimpelkette to check
     // refactor for new wimpelketten
-    public void getQuality(ArrayList<Wimpel> wimpelkette) {
+    public int[] getQuality() {
         // store all colors of current wimpelkette and use that to generate the quality,
         // so we are independent of additional input
         colorlist = new ArrayList<Character>();
-        this.wimpelkette = wimpelkette;
 
         // stores all occurring colors of the input
         for (int i = 0; i < wimpelkette.size(); i++) {
@@ -187,11 +182,12 @@ public class Wimpelkette {
                 quality[0] = minDistance;
             }
         }
+        quality[1] = frequency;
+        return quality;
     }
 
     // prints the quality of the current wimpelkette
     public void printQuality() {
-        getQuality(this.wimpelkette);
         System.out.print("Qualitaet: (" + quality[0] + "," + quality[1] + ")\n");
     }
 

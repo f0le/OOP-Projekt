@@ -13,7 +13,7 @@ public class Wimpelkette {
     // the frequency of that distance
     private int[] quality = new int[2];
     private ArrayList<Wimpel> wimpelkette = new ArrayList<Wimpel>();
-    private ArrayList<String> colorlist = new ArrayList<String>();
+    private ArrayList<String> colorlist;
     private int max = 0;
     private char maxCountColor;
     private boolean occurrence = true;
@@ -68,22 +68,23 @@ public class Wimpelkette {
     public void generiereStandardKette(int[] count, char[] color) {
         for (int i = 0; i < color.length; i++) {
             for (int j = 0; j < count[i]; j++) {
-                wimpelkette.add(new Wimpel(color[i]));
+                this.wimpelkette.add(new Wimpel(color[i]));
             }
         }
     }
 
     // calculates the quality of the current wimpelkette
     // parameter is the wimpelkette to check
-    public void getQuality(Wimpelkette wimpelkette) {
+    public void getQuality(ArrayList<Wimpel> wimpelkette) {
         // store all colors of current wimpelkette and use that to generate the quality,
         // so we are independent of additional input
         colorlist = new ArrayList<String>();
+        this.wimpelkette = wimpelkette;
 
         for (int i = 0; i < this.wimpelkette.size(); i++) {
-            for (int j = 0; j < this.colorlist.size(); j++) {
+            for (int j = 0; j < colorlist.size(); j++) {
                 // color not already stored, store it
-                if (this.wimpelkette.get(i).getColor() == this.colorlist.get(j).charAt(0)) {
+                if (wimpelkette.get(i).getColor() == colorlist.get(j).charAt(0)) {
                     occurrence = true;
                     break;
                 } else {
@@ -95,14 +96,13 @@ public class Wimpelkette {
             }
         }
 
-        for (int i = 0; i < this.colorlist.size(); i++) {
+        for (int i = 0; i < colorlist.size(); i++) {
             frequency = 0;
-            for (int j = 0; j < this.wimpelkette.size(); j++) {
-                if (this.wimpelkette.get(j).getColor() == this.colorlist.get(i).charAt(0)) {
-                    for (int k = j + 1; k < this.wimpelkette.size(); k++) {
+            for (int j = 0; j < wimpelkette.size(); j++) {
+                if (wimpelkette.get(j).getColor() == colorlist.get(i).charAt(0)) {
+                    for (int k = j + 1; k < wimpelkette.size(); k++) {
                         // vergleich j!=k nicht notwendig
-                        if (this.wimpelkette.get(k).getColor() == this.colorlist.get(i).charAt(0)
-                                && this.wimpelkette.get(j) != this.wimpelkette.get(k)) {
+                        if (wimpelkette.get(k).getColor() == colorlist.get(i).charAt(0)) {
                             // sollte nicht negativ werden so
                             distance = k - j;
                             j = k;
@@ -130,7 +130,7 @@ public class Wimpelkette {
     }
 
     // prints the quality of the current wimpelkette
-    public void printQuality(Wimpelkette wimpelkette) {
+    public void printQuality() {
         getQuality(wimpelkette);
         System.out.print("Qualitaet: (" + quality[0] + "," + quality[1] + ")\n");
     }
@@ -138,8 +138,8 @@ public class Wimpelkette {
     // prints the current wimpelkette
     public void printWimpelkette() {
         System.out.print("Kette: ");
-        for (int i = 0; i < this.wimpelkette.size() - 1; i++) {
-            System.out.print(this.wimpelkette.get(i).getColor() + ",");
+        for (int i = 0; i < wimpelkette.size() - 1; i++) {
+            System.out.print(wimpelkette.get(i).getColor() + ",");
         }
         System.out.print(wimpelkette.get(wimpelkette.size() - 1).getColor() + "\n");
     }

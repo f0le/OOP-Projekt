@@ -36,17 +36,20 @@ public class Wimpelkette {
         this.wimpelkette = new ArrayList<Wimpel>();
         this.unsortedwimpel = new ArrayList<Wimpel>();
         for (int i = 0; i < color.length; i++) {
-            unsortedwimpel.add(new Wimpel(color[i], count[i]));
+            for (int j = 0; j < count.length; j++) {
+                unsortedwimpel.add(new Wimpel(color[i]));
+            }
         }
 
-        // this.generiereStandardKette(count, color);
+        this.generiereStandardKette(count, color);
         // this.generiereOptimaleKette(wimpelkette, this.countlist,
         // this.colorlist);
     }
 
     // generate optimal solution recursively, iteration needs to be 0 on first
     // invocation
-    private int generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, ArrayList<Wimpel> result, ArrayList<Wimpel> unsortedwimpel, char lastColor, int[] qualityResult, int countSolution) {
+    private int generiereOptimaleKette(ArrayList<Wimpel> wimpelkette, ArrayList<Wimpel> result,
+            ArrayList<Wimpel> unsortedwimpel, char lastColor, int[] qualityResult, int countSolution) {
 
         // prueft ob die liste mit den unsortierten wimpeln leer ist
         for (int i = 0; i < unsortedwimpel.size(); i++) {
@@ -58,12 +61,13 @@ public class Wimpelkette {
         }
         // abbruchbedingung, alle wimpel wurden sortiert
         if (wimpelEmpty(unsortedwimpel)) {
-            //hier methode fuer kette vergleichen und falls qualitaet besser dann setze aktuelle kette als beste kette
-            // falls die qualitaet der gefundenen wimpelkette hoeher ist, dann setze die anzahl der loesungen auf 1
-            //auch hier das attribut erhoehen, falls die qualitaet der gefundenen wimpelkette gleich ist der aktuellel
-            for(int i=0;i<2;i++){
-                if(wimpelkette.getQuality()) {
-                }
+            // hier methode fuer kette vergleichen und falls qualitaet besser dann setze
+            // aktuelle kette als beste kette
+            // falls die qualitaet der gefundenen wimpelkette hoeher ist, dann setze die
+            // anzahl der loesungen auf 1
+            // auch hier das attribut erhoehen, falls die qualitaet der gefundenen
+            // wimpelkette gleich ist der aktuellel
+            for (int i = 0; i < 2; i++) {
             }
         }
 
@@ -72,13 +76,14 @@ public class Wimpelkette {
         if (wimpelkette.isEmpty()) {
             wimpelkette.add(new Wimpel(unsortedwimpel.get(getMaxCountElement()).getColor(), 1));
         }
-        for (int i=0;i<unsortedwimpel.size();i++) {
-            if (unsortedwimpel.get(i).getCount() > 0 && unsortedwimpel.get(i).getColor() != unsortedwimpel.get(i-1).getColor()) {
-                wimpelkette.add(new Wimpel);
-                unsortedwimpel.set(i, unsortedwimpel.get(i).getCount()-1);
+        for (int i = 0; i < unsortedwimpel.size(); i++) {
+            if (unsortedwimpel.get(i).getCount() > 0
+                    && unsortedwimpel.get(i).getColor() != unsortedwimpel.get(i - 1).getColor()) {
+                wimpelkette.add(new Wimpel(unsortedwimpel.get(i).getColor(), 1));
+                unsortedwimpel.set(unsortedwimpel.get(i).getColor(), unsortedwimpel.get(i).getCount() - 1);
             }
         }
-        for (int i=0;i<wimpelkette.size();i++) {
+        for (int i = 0; i < wimpelkette.size(); i++) {
             System.out.print(wimpelkette.get(i));
         }
 

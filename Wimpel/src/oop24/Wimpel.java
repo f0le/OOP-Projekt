@@ -1,14 +1,13 @@
 package oop24;
 
 public class Wimpel {
+    private char farbe;
 
-    private char color;
-
-    public Wimpel(char color) {
-        this.color = color;
+    public Wimpel(char farbe) {
+        this.farbe = farbe;
     }
 
-    public char getColor() {
-        return this.color;
+    public char getFarbe() {
+        return farbe;
     }
 }

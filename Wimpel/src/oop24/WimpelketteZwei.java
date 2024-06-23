@@ -11,7 +11,7 @@ public class WimpelketteZwei {
     public WimpelketteZwei(int[] anzahl, char[] farben) {
 
         wimpelliste = new ArrayList<>();
-        for (int i = 0; i <= anzahl.length; i++) {
+        for (int i = 0; i < anzahl.length; i++) {
             wimpelliste.add(new WimpelZwei(farben[i], anzahl[i]));   
         }
     }
@@ -40,7 +40,7 @@ public class WimpelketteZwei {
         for(WimpelZwei wimpel : wimpelliste) {
 
             if(wimpel.getAnzahl() > 0) {
-                
+
                 kette[pos] = wimpel.getFarbe();
                 wimpel.setAnzahl(wimpel.getAnzahl() -1);
 

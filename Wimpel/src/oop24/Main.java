@@ -31,7 +31,7 @@ public class Main {
         Wimpelkette wimpelkettezwei = new Wimpelkette(wimpelanzahl2, wimpelfarbe2);
         Ergebnis ergebnis2 = wimpelkettezwei.generiereOptimaleKette();
         System.out.println("Beste Kette: " + ergebnis2.getKette());
-        System.out.println("Qualitaet: (" + ergebnis2.getMinDistanz() + "," + ergebnis2.getMinFrequenz() + ")")
+        System.out.println("Qualitaet: (" + ergebnis2.getMinDistanz() + "," + ergebnis2.getMinFrequenz() + ")");
 
         Wimpelkette wimpelkettedrei = new Wimpelkette(wimpelanzahl3, wimpelfarbe3);
         Ergebnis ergebnis3 = wimpelkettedrei.generiereOptimaleKette();

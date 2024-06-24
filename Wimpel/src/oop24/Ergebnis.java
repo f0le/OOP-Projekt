@@ -17,7 +17,7 @@ public class Ergebnis {
      * 
      * @param minDistanz    int
      * @param minFrequenz   int
-     * @param optimalekette String
+     * @param optimaleKette String
      **/
     public Ergebnis(int minDistanz, int minFrequenz, String optimaleKette) {
 
@@ -83,7 +83,8 @@ public class Ergebnis {
      * <code>
      * istBesser()
      * </code>
-     *
+     * 
+     * @param vergleichsErgebnis Ergebnis
      * @return boolean, if the compared Wimpelkette is better
      **/
     public boolean istBesser(Ergebnis vergleichsErgebnis) {
@@ -94,15 +95,15 @@ public class Ergebnis {
     }
 
     /**
-     * This method returns the privatekey portion of the key without the
-     * generatornumber
+     * This method checks if two Wimpelketten are equal
      * <p>
      * Usage:
      * <p>
      * <code>
-     * get_PrivateKey()
+     * istGleich()
      * </code>
-     *
+     * 
+     * @param vergleichsErgebnis Ergebnis
      * @return boolean, if the compared Wimpelketten are of equal quality
      **/
     public boolean istGleich(Ergebnis vergleichsErgebnis) {

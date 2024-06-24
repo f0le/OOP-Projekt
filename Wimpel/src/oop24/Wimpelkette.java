@@ -3,12 +3,24 @@ package oop24;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class creates and calls the generation of the Wimpelkette
+ *
+ * @author Peter Krahl, Patrick Folie
+ * @version 1.0
+ */
 public class Wimpelkette {
 
     private HashMap<Character, Integer> wimpelMap;
     private ArrayList<Ergebnis> besteErgebnisse;
     private int anzahlBesteLoesungen;
 
+    /**
+     * Constructor for the Wimpelketten class
+     * 
+     * @param anzahl int array
+     * @param farben char array
+     **/
     public Wimpelkette(int[] anzahl, char[] farben) {
         wimpelMap = new HashMap<>();
         for (int i = 0; i < anzahl.length; i++) {
@@ -18,6 +30,18 @@ public class Wimpelkette {
         anzahlBesteLoesungen = 0;
     }
 
+    /**
+     * This method generates an optimal solution(calls other methods) and prints the
+     * number of best solutions
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * generiereOptimaleKette()
+     * </code>
+     *
+     * @return Ergebnis, object which stores the current best Wimpelkette
+     **/
     public Ergebnis generiereOptimaleKette() {
         generiereKetten(new ArrayList<>(), wimpelMap);
 
@@ -29,6 +53,21 @@ public class Wimpelkette {
         }
     }
 
+    /**
+     * This method is the recursive function and generates the permutations of the
+     * Wimpelketten
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * generiereKetten()
+     * </code>
+     *
+     * @param aktuelleKette      ArrayList<Wimpel>, current Wimpelkette
+     * @param verbleibendeWimpel Wimpelketten HashMap<Character, Integer>, remaining
+     *                           Wimpelketten
+     * @return void
+     **/
     private void generiereKetten(ArrayList<Wimpel> aktuelleKette, HashMap<Character, Integer> verbleibendeWimpel) {
         if (verbleibendeWimpel.values().stream().allMatch(anzahl -> anzahl == 0)) {
             Ergebnis neuesErgebnis = evaluiereKette(aktuelleKette);
@@ -41,7 +80,9 @@ public class Wimpelkette {
                 anzahlBesteLoesungen++;
             }
 
-            System.out.println("Evaluated Kette: " + neuesErgebnis.getKette() + " with MinDistanz: " + neuesErgebnis.getMinDistanz() + " and MinFrequenz: " + neuesErgebnis.getMinFrequenz());
+            // System.out.println("Evaluated Kette: " + neuesErgebnis.getKette() + " with
+            // MinDistanz: " + neuesErgebnis.getMinDistanz() + " and MinFrequenz: " +
+            // neuesErgebnis.getMinFrequenz());
             return;
         }
 
@@ -56,6 +97,19 @@ public class Wimpelkette {
         }
     }
 
+    /**
+     * This method evaluates the quality of a Wimpelkette and returns an Ergebnis
+     * object
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * evaluiereKette()
+     * </code>
+     * 
+     * @param wimpelliste ArrayList<Wimpel>, Wimpelkette to be evaluated
+     * @return Ergebnis, object which
+     **/
     private Ergebnis evaluiereKette(ArrayList<Wimpel> wimpelliste) {
         int minDistanz = Integer.MAX_VALUE;
         int minFrequenz = 0;

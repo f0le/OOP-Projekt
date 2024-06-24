@@ -13,14 +13,14 @@ public class Main {
         char[] wimpelfarbe2 = new char[] { 'r', 'b' };
         int[] wimpelanzahl2 = new int[] { 2, 1 };
 
-        char[] wimpelfarbe3 = new char[] {'r', 'b', 'g', 's'};
-        int[] wimpelanzahl3 = new int[] {4, 3, 2, 2};
-
+        char[] wimpelfarbe3 = new char[] { 'r', 'b', 'g', 's' };
+        int[] wimpelanzahl3 = new int[] { 4, 3, 2, 2 };
 
         Wimpelkette wimpelkettezwei = new Wimpelkette(wimpelanzahl, wimpelfarbe);
         Ergebnis ergebnis = wimpelkettezwei.generiereOptimaleKette();
 
         System.out.println("Beste Kette: " + ergebnis.getKette());
+        System.out.println("Qualitaet: (" + ergebnis.getMinDistanz() + "," + ergebnis.getMinFrequenz() + ")");
 
         // Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
         // wimpelkette1.printWimpelkette();

@@ -23,7 +23,10 @@ public class Main {
         char[] wimpelfarbe4 = new char[] { 'r', 'b', 'g', 's' };
         int[] wimpelanzahl4 = new int[] { 4, 3, 2, 2 };
 
-        Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
+        char[] wimpelfarbe5 = new char[] { 'r', 'g'};
+        int[] wimpelanzahl5 = new int[] { 2, 1 };
+
+   /*      Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
         wimpelkette1.generiereOptimaleKette();
 
         Wimpelkette wimpelkette2 = new Wimpelkette(wimpelanzahl2, wimpelfarbe2);
@@ -35,8 +38,10 @@ public class Main {
 
 
         Wimpelkette wimpelkette4 = new Wimpelkette(wimpelanzahl4, wimpelfarbe4);
-        wimpelkette4.generiereOptimaleKette();
+        wimpelkette4.generiereOptimaleKette(); */
 
+        Wimpelkette wimpelkette5 = new Wimpelkette(wimpelanzahl5, wimpelfarbe5);
+        wimpelkette5.generiereOptimaleKette();
 
     }
 }

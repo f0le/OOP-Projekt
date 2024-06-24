@@ -17,7 +17,7 @@ public class Main {
         int[] wimpelanzahl3 = new int[] {4, 3, 2, 2};
 
 
-        Wimpelkette wimpelkettezwei = new Wimpelkette(wimpelanzahl3, wimpelfarbe3);
+        Wimpelkette wimpelkettezwei = new Wimpelkette(wimpelanzahl, wimpelfarbe);
         Ergebnis ergebnis = wimpelkettezwei.generiereOptimaleKette();
 
         System.out.println("Beste Kette: " + ergebnis.getKette());

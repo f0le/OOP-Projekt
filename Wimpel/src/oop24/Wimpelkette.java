@@ -5,54 +5,55 @@ import java.util.HashMap;
 
 public class Wimpelkette {
 
-    private ArrayList<Wimpel> wimpelliste;
+    private HashMap<Character, Integer> wimpelMap;
+    private ArrayList<Ergebnis> besteErgebnisse;
+    private int anzahlBesteLoesungen;
 
     public Wimpelkette(int[] anzahl, char[] farben) {
-        wimpelliste = new ArrayList<>();
+        wimpelMap = new HashMap<>();
         for (int i = 0; i < anzahl.length; i++) {
-            for (int j = 0; j < anzahl[i]; j++) {
-                wimpelliste.add(new Wimpel(farben[i]));
-            }
+            wimpelMap.put(farben[i], anzahl[i]);
         }
+        besteErgebnisse = new ArrayList<>();
+        anzahlBesteLoesungen = 0;
     }
-
 
     public Ergebnis generiereOptimaleKette() {
-        ArrayList<Ergebnis> ergebnisse = new ArrayList<>();
-        generierePermutationen(wimpelliste, 0, ergebnisse);
+        generiereKetten(new ArrayList<>(), wimpelMap);
 
-        if (ergebnisse.isEmpty()) {
+        if (besteErgebnisse.isEmpty()) {
             return null;
         } else {
-            System.out.println(ergebnisse.size());
-            return ergebnisse.get(0);
+            System.out.println("Anzahl der besten Lösungen: " + anzahlBesteLoesungen);
+            return besteErgebnisse.get(0);
         }
     }
 
-    private void generierePermutationen(ArrayList<Wimpel> wimpelliste, int index, ArrayList<Ergebnis> ergebnisse) {
-        if (index == wimpelliste.size()) {
-            Ergebnis neuesErgebnis = evaluiereKette(wimpelliste);
-            if (ergebnisse.isEmpty() || neuesErgebnis.istBesser(ergebnisse.get(0))) {
-                ergebnisse.clear();
-                ergebnisse.add(neuesErgebnis);
-            } else if (neuesErgebnis.istGleich(ergebnisse.get(0))) {
-                ergebnisse.add(neuesErgebnis);
+    private void generiereKetten(ArrayList<Wimpel> aktuelleKette, HashMap<Character, Integer> verbleibendeWimpel) {
+        if (verbleibendeWimpel.values().stream().allMatch(anzahl -> anzahl == 0)) {
+            Ergebnis neuesErgebnis = evaluiereKette(aktuelleKette);
+            if (besteErgebnisse.isEmpty() || neuesErgebnis.istBesser(besteErgebnisse.get(0))) {
+                besteErgebnisse.clear();
+                besteErgebnisse.add(neuesErgebnis);
+                anzahlBesteLoesungen = 1;
+            } else if (neuesErgebnis.istGleich(besteErgebnisse.get(0))) {
+                besteErgebnisse.add(neuesErgebnis);
+                anzahlBesteLoesungen++;
             }
-            
+
+            System.out.println("Evaluated Kette: " + neuesErgebnis.getKette() + " with MinDistanz: " + neuesErgebnis.getMinDistanz() + " and MinFrequenz: " + neuesErgebnis.getMinFrequenz());
             return;
         }
 
-        for (int i = index; i < wimpelliste.size(); i++) {
-            tausche(wimpelliste, index, i);
-            generierePermutationen(wimpelliste, index + 1, ergebnisse);
-            tausche(wimpelliste, index, i);
+        for (Character farbe : verbleibendeWimpel.keySet()) {
+            if (verbleibendeWimpel.get(farbe) > 0) {
+                aktuelleKette.add(new Wimpel(farbe));
+                verbleibendeWimpel.put(farbe, verbleibendeWimpel.get(farbe) - 1);
+                generiereKetten(aktuelleKette, verbleibendeWimpel);
+                verbleibendeWimpel.put(farbe, verbleibendeWimpel.get(farbe) + 1);
+                aktuelleKette.remove(aktuelleKette.size() - 1);
+            }
         }
-    }
-
-    private void tausche(ArrayList<Wimpel> wimpelliste, int index1, int index2) {
-        Wimpel temp = wimpelliste.get(index1);
-        wimpelliste.set(index1, wimpelliste.get(index2));
-        wimpelliste.set(index2, temp);
     }
 
     private Ergebnis evaluiereKette(ArrayList<Wimpel> wimpelliste) {

@@ -24,24 +24,19 @@ public class Main {
         int[] wimpelanzahl4 = new int[] { 4, 3, 2, 2 };
 
         Wimpelkette wimpelkette1 = new Wimpelkette(wimpelanzahl1, wimpelfarbe1);
-        Ergebnis ergebnis1 = wimpelkette1.generiereOptimaleKette();
-        System.out.println("Beste Kette: " + ergebnis1.getKette());
-        System.out.println("Qualitaet: (" + ergebnis1.getMinDistanz() + "," + ergebnis1.getMinFrequenz() + ")");
+        wimpelkette1.generiereOptimaleKette();
 
         Wimpelkette wimpelkette2 = new Wimpelkette(wimpelanzahl2, wimpelfarbe2);
-        Ergebnis ergebnis2 = wimpelkette2.generiereOptimaleKette();
-        System.out.println("Beste Kette: " + ergebnis2.getKette());
-        System.out.println("Qualitaet: (" + ergebnis2.getMinDistanz() + "," + ergebnis2.getMinFrequenz() + ")");
+        wimpelkette2.generiereOptimaleKette();
+
 
         Wimpelkette wimpelkette3 = new Wimpelkette(wimpelanzahl3, wimpelfarbe3);
-        Ergebnis ergebnis3 = wimpelkette3.generiereOptimaleKette();
-        System.out.println("Beste Kette: " + ergebnis3.getKette());
-        System.out.println("Qualitaet: (" + ergebnis3.getMinDistanz() + "," + ergebnis3.getMinFrequenz() + ")");
+        wimpelkette3.generiereOptimaleKette();
+
 
         Wimpelkette wimpelkette4 = new Wimpelkette(wimpelanzahl4, wimpelfarbe4);
-        Ergebnis ergebnis4 = wimpelkette4.generiereOptimaleKette();
-        System.out.println("Beste Kette: " + ergebnis4.getKette());
-        System.out.println("Qualitaet: (" + ergebnis4.getMinDistanz() + "," + ergebnis4.getMinFrequenz() + ")");
+        wimpelkette4.generiereOptimaleKette();
+
 
     }
 }

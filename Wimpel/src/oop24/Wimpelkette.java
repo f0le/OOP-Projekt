@@ -12,8 +12,8 @@ import java.util.HashMap;
 public class Wimpelkette {
 
     private HashMap<Character, Integer> wimpelMap;
-    private ArrayList<Ergebnis> besteErgebnisse;
-    private int anzahlBesteLoesungen;
+    //private ArrayList<Ergebnis> besteErgebnisse;
+    //private int anzahlBesteLoesungen;
 
     /**
      * Constructor for the Wimpelketten class
@@ -29,8 +29,8 @@ public class Wimpelkette {
             wimpelMap.put(farben[i], anzahl[i]);
         }
 
-        besteErgebnisse = new ArrayList<>();
-        anzahlBesteLoesungen = 0;
+        //besteErgebnisse = new ArrayList<>();
+        //anzahlBesteLoesungen = 0;
     }
 
     /**
@@ -45,18 +45,20 @@ public class Wimpelkette {
      *
      * @return Ergebnis, object which stores the current best Wimpelkette
      **/
-    public Ergebnis generiereOptimaleKette() {
+    public void generiereOptimaleKette() {
 
-        generiereKetten(new ArrayList<Wimpel>(), wimpelMap);
+        ArrayList<Ergebnis> besteErgebnisse = generiereKetten(new ArrayList<Wimpel>(), wimpelMap);
 
-        if (besteErgebnisse.isEmpty()) {
+        System.out.println("Beste Wimpelkette: " + besteErgebnisse.get(0));
+        System.out.println("Anzahl beste Ergebnisse: " + besteErgebnisse.size()); 
+/*         if (besteErgebnisse.isEmpty()) {
 
             return null;
         } else {
 
             System.out.println("Anzahl der besten Lösungen: " + anzahlBesteLoesungen);
             return besteErgebnisse.get(0);
-        }
+        } */
     }
 
     /**
@@ -74,8 +76,10 @@ public class Wimpelkette {
      *                           Wimpelketten
      * @return void
      **/
-    private void generiereKetten(ArrayList<Wimpel> aktuelleKette, HashMap<Character, Integer> verbleibendeWimpel) {
+    private ArrayList<Ergebnis> generiereKetten(ArrayList<Wimpel> aktuelleKette, HashMap<Character, Integer> verbleibendeWimpel) {
         
+        ArrayList<Ergebnis> besteErgebnisse = new ArrayList<>();
+
         if (verbleibendeWimpel.values().stream().allMatch(anzahl -> anzahl == 0)) {
 
             Ergebnis neuesErgebnis = evaluiereKette(aktuelleKette);
@@ -84,18 +88,16 @@ public class Wimpelkette {
 
                 besteErgebnisse.clear();
                 besteErgebnisse.add(neuesErgebnis);
-                anzahlBesteLoesungen = 1;
 
             } else if (neuesErgebnis.istGleich(besteErgebnisse.get(0))) {
 
                 besteErgebnisse.add(neuesErgebnis);
-                anzahlBesteLoesungen++;
             }
 
             // System.out.println("Evaluated Kette: " + neuesErgebnis.getKette() + " with
             // MinDistanz: " + neuesErgebnis.getMinDistanz() + " and MinFrequenz: " +
             // neuesErgebnis.getMinFrequenz());
-            return;
+            return besteErgebnisse;
         }
 
         for (Character farbe : verbleibendeWimpel.keySet()) {
@@ -134,7 +136,7 @@ public class Wimpelkette {
         for (int i = 0; i < wimpelliste.size(); i++) {
 
             char farbe = wimpelliste.get(i).getFarbe();
-            
+
             if (letztePosition.containsKey(farbe)) {
 
                 int distanz = i - letztePosition.get(farbe);
@@ -149,13 +151,16 @@ public class Wimpelkette {
                     minFrequenz++;
                 }
             }
+
             letztePosition.put(farbe, i);
         }
 
         StringBuilder ketteBuilder = new StringBuilder();
+
         for (Wimpel wimpel : wimpelliste) {
             ketteBuilder.append(wimpel.getFarbe());
         }
+        
         String kette = ketteBuilder.toString();
 
         return new Ergebnis(minDistanz, minFrequenz, kette);

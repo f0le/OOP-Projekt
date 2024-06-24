@@ -43,11 +43,14 @@ public class Wimpelkette {
      * @return Ergebnis, object which stores the current best Wimpelkette
      **/
     public Ergebnis generiereOptimaleKette() {
-        generiereKetten(new ArrayList<>(), wimpelMap);
+
+        generiereKetten(new ArrayList<Wimpel>(), wimpelMap);
 
         if (besteErgebnisse.isEmpty()) {
+            
             return null;
         } else {
+
             System.out.println("Anzahl der besten Lösungen: " + anzahlBesteLoesungen);
             return besteErgebnisse.get(0);
         }

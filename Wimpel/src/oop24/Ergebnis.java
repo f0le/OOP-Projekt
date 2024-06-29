@@ -27,6 +27,24 @@ public class Ergebnis {
     }
 
     /**
+     * This method overrides the default toString method ov every object to properly
+     * print the Object's data
+     * <p>
+     * Usage:
+     * <p>
+     * <code>
+     * toString()
+     * the method gets automatically called when you print an Ergebniss object
+     * </code>
+     *
+     * @return String, String representation of the Wimpelkette
+     **/
+    @Override
+    public String toString() {
+        return "Kette: (" + this.kette + ") mit Qualitaet (" + this.minDistanz + "," + this.minFrequenz + ")";
+    }
+
+    /**
      * This method returns the minimal Distance of the quality criteria
      * <p>
      * Usage:
